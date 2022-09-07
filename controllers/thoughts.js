@@ -19,23 +19,8 @@ const thoughtController = {
         res.status(400).json(err);
       });
   },
-  // get one thought by it's id
-  getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.id })
-      .then((dbThoughtData) => {
-        // if no thought is found
-        if (!dbThoughtData) {
-          res.status(404).json({ message: "No thought with this ID" });
-          return;
-        }
-        res.json(dbThoughtData);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
-  },
-  // create thought to a user
+
+  // create thought to user
   createThought({ body }, res) {
     console.log(body);
     Thought.create(body)
