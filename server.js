@@ -14,12 +14,9 @@ app.use(require('./routes'));
 
 // Connect mongoose
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network', {
-  useFindAndModify: false,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+  mongoose.set('debug', true);
 
-// Log mongoose queries
-mongoose.set('debug', true);
-
-app.listen(PORT, () => console.log(` ************** Connected on localhost:${PORT} ************* `));
+  const conSuccessful = mongoose.connection
+  conSuccessful.once('open', () => {
+    app.listen(PORT, () => console.log(`connected on localhost:${PORT}`));
+  })
